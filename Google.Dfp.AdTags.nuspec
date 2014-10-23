@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Google.Dfp.AdTags</id>
+    <version>1.0.0</version>
+    <authors>Dazed</authors>
+    <owners>Dazed</owners>
+    <projectUrl>http://github.com/dazed/Google.Dfp.AdTags</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>For easy use of Google DoubleClick for publisher Ad Tags in an .NET Web Application.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+		<language>en-GB</language>
+    <tags>dfp mvc</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
