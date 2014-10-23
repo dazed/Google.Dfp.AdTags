@@ -1,0 +1,24 @@
+﻿@using Google.Dfp
+@{
+    ViewBag.Title = "Google Ads Test";
+
+	Google.Dfp.AdTags.AddSizeMapping("leaderboard", new List<String>
+	{
+		// Mobile: Both common mobile banner formats
+		"[320, 300], [[320, 50], [300, 50]]",
+		// Tablet: Leaderboard
+		"[738, 300], [728,90]",
+		// Desktop: wide leaderboard
+		"[1110, 300], [[900,90],[728,90]]"
+	});
+}
+
+<h2>Demo page</h2>
+
+@AdTags.Placeholder("DD_Header", "[300,50]", "leaderboard advert", tagName: "div", sizeMapping: "leaderboard")
+
+@AdTags.Placeholder("DD_Top", "[[300,250],[300,200],[300,600]]", "advert")
+@AdTags.Placeholder("DD_Bottom", "[300,250]", "advert")
+
+
+@AdTags.FooterTag("1060579")
