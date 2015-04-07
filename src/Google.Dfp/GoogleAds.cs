@@ -142,7 +142,7 @@ namespace Google.Dfp
 
 			string placeholder = String.Format(
 				CultureInfo.InvariantCulture,
-				"<{0} id=\"{1}\" class=\"{2}\"><!-- {3} --></{0}>",
+				"<{0} id=\"{1}\" class=\"{2}\" data-cb-ad-id=\"{3}\"><!-- {3} --></{0}>",
 				tagName,
 				containerId,
 				cssClass,
