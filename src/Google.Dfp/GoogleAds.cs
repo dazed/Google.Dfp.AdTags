@@ -35,7 +35,7 @@ namespace Google.Dfp
             /// <summary>
             /// DFP Targeting
             /// </summary>
-            public string[] Targeting {get;set;}
+            public Dictionary<string,string> Targeting {get;set;}
 		}
 
 		private static HttpContextBase Context
@@ -88,7 +88,7 @@ namespace Google.Dfp
 		/// <param name="sizeMapping">Specify creative sizes in the googletag.defineSlot() function. To allow multiple sizes to serve to the ad slot, you can use a comma-separated list.</param>
 		/// <param name="display">Should display be called when the dfp script is initialised?</param>
 		/// <returns>HTML container object.</returns>
-		public static IHtmlString Placeholder(string unitName, string size, string cssClass = "", string tagName = "div", string sizeMapping = null, bool display = true, string[] targeting = null)
+        public static IHtmlString Placeholder(string unitName, string size, string cssClass = "", string tagName = "div", string sizeMapping = null, bool display = true, Dictionary<string, string> targeting = null)
 		{
 			if (String.IsNullOrWhiteSpace(unitName)){
                 throw new ArgumentNullException("unitName");
@@ -243,7 +243,7 @@ node.parentNode.insertBefore(gads, node);
                     {
                         foreach(var adSlotTargeting in ad.Targeting)
                         {
-                            adSlotTargetingCode += string.Concat(".setTargeting('", adSlotTargeting, "')");
+                            adSlotTargetingCode += string.Concat(".setTargeting('", adSlotTargeting.Key.Replace("'", "\'"), "', '", adSlotTargeting.Value.Replace("'", "\'"), "')");
                         }
                     }
 					sb.AppendFormat(
