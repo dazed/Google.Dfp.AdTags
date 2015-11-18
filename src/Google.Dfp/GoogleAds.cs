@@ -253,8 +253,8 @@ node.parentNode.insertBefore(gads, node);
 						ad.UnitName,
 						ad.Size,
 						ad.Id,
-                        adSlotTargetingCode,
-						sizeMappingFunction,
+                        sizeMappingFunction,
+                        adSlotTargetingCode,						
 						Environment.NewLine);
 				}
 				if (targeting != null)
