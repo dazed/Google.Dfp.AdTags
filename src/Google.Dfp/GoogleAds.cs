@@ -142,14 +142,16 @@ namespace Google.Dfp
 			if (String.IsNullOrWhiteSpace(unitName)){
                 throw new ArgumentNullException("unitName");
             }
-			if (String.IsNullOrWhiteSpace(tagName)){ 
-                throw new ArgumentNullException("tagName");
-            }
-
+            
             cssClass = cssClass ?? "";
             tagName = tagName ?? "div";
             targeting = targeting ?? new Dictionary<string, string>();
             sizeMapping = sizeMapping ?? "";
+
+            if (String.IsNullOrWhiteSpace(tagName))
+            {
+                throw new ArgumentNullException("tagName");
+            }
 
 			var containerId = "div-gpt-ad-" + _adCounter;
 
