@@ -78,7 +78,55 @@ namespace Google.Dfp
 
 	    private static int _adCounter;
 
-        /// <summary>
+		/// <summary>
+		/// Placeholder div that is replaced with ads.
+		/// </summary>
+		/// <returns>Div container.</returns>
+		public static IHtmlString Placeholder(string unitName, string size)
+		{
+			return Placeholder(unitName, size, null);
+		}
+
+		/// <summary>
+		/// Placeholder div that is replaced with ads.
+		/// </summary>
+		/// <param name="unitName">Name of the ad unit as set in DFP.</param>
+		/// <param name="size">Specify creative sizes in the googletag.defineSlot() function. To allow multiple sizes to serve to the ad slot, you can use a comma-separated list.</param>
+		/// <param name="cssClass">CSS class to add to the ad unit div container.</param>
+		/// <returns>Div container.</returns>
+		public static IHtmlString Placeholder(string unitName, string size, string cssClass)
+		{
+            return Placeholder(unitName, size, cssClass, null);
+		}
+
+		/// <summary>
+		/// Placeholder that is replaced with ads.
+		/// </summary>
+		/// <param name="unitName">Name of the ad unit as set in DFP.</param>
+		/// <param name="size">Specify creative sizes in the googletag.defineSlot() function. To allow multiple sizes to serve to the ad slot, you can use a comma-separated list.</param>
+		/// <param name="cssClass">CSS class to add to the ad unit div container.</param>
+		/// <param name="tagName">Type of parent container, must be block</param>
+		/// <returns>HTML container object.</returns>
+		public static IHtmlString Placeholder(string unitName, string size, string cssClass, string tagName)
+		{
+			return Placeholder(unitName, size, cssClass, tagName, null);
+		}
+
+		/// <summary>
+		/// Placeholder that is replaced with ads.
+		/// </summary>
+		/// <param name="unitName">Name of the ad unit as set in DFP.</param>
+		/// <param name="size">Specify creative sizes in the googletag.defineSlot() function. To allow multiple sizes to serve to the ad slot, you can use a comma-separated list.</param>
+		/// <param name="cssClass">CSS class to add to the ad unit div container.</param>
+		/// <param name="tagName">Type of parent container, must be block</param>
+		/// <param name="sizeMapping">Specify creative sizes in the googletag.defineSlot() function. To allow multiple sizes to serve to the ad slot, you can use a comma-separated list.</param>
+		/// <returns>HTML container object.</returns>
+		public static IHtmlString Placeholder(string unitName, string size, string cssClass, string tagName, string sizeMapping)
+		{
+			return Placeholder(unitName, size, cssClass, tagName, sizeMapping, true, null);
+		}
+
+		/// <summary>
 		/// Placeholder that is replaced with ads.
 		/// </summary>
 		/// <param name="unitName">Name of the ad unit as set in DFP.</param>
@@ -87,8 +135,9 @@ namespace Google.Dfp
 		/// <param name="tagName">Type of parent container, must be block</param>
 		/// <param name="sizeMapping">Specify creative sizes in the googletag.defineSlot() function. To allow multiple sizes to serve to the ad slot, you can use a comma-separated list.</param>
 		/// <param name="display">Should display be called when the dfp script is initialised?</param>
+        /// <param name="targeting">GA slot specific targeting</param>
 		/// <returns>HTML container object.</returns>
-        public static IHtmlString Placeholder(string unitName, string size, string cssClass = "", string tagName = "div", string sizeMapping = null, bool display = true, Dictionary<string, string> targeting = null)
+        public static IHtmlString Placeholder(string unitName, string size, string cssClass, string tagName, string sizeMapping, bool display, Dictionary<string, string> targeting)
 		{
 			if (String.IsNullOrWhiteSpace(unitName)){
                 throw new ArgumentNullException("unitName");
@@ -96,6 +145,11 @@ namespace Google.Dfp
 			if (String.IsNullOrWhiteSpace(tagName)){ 
                 throw new ArgumentNullException("tagName");
             }
+
+            cssClass = cssClass ?? "";
+            tagName = tagName ?? "div";
+            targeting = targeting ?? new Dictionary<string, string>();
+            sizeMapping = sizeMapping ?? "";
 
 			var containerId = "div-gpt-ad-" + _adCounter;
 
@@ -116,7 +170,7 @@ namespace Google.Dfp
                 Targeting = targeting
 			};
 
-			if (sizeMapping != null)
+			if (!string.IsNullOrWhiteSpace(sizeMapping))
 			{
 				// Confirm the mapping exists
 				if (!SizeUnits.ContainsKey(sizeMapping)){
@@ -180,9 +234,19 @@ namespace Google.Dfp
 		/// Script that must be located in the document head.
 		/// </summary>
 		/// <param name="networkCode">Google ad sense network code.</param>
-		/// <param name="targeting">Key-values to target ads.</param>
 		/// <returns>Script tags.</returns>
-		public static IHtmlString FooterTag(string networkCode, Dictionary<string, string> targeting = null)
+		public static IHtmlString FooterTag(string networkCode)
+		{
+			return FooterTag(networkCode, null);
+		}
+
+		/// <summary>
+		/// Script that must be located in the document head.
+		/// </summary>
+		/// <param name="networkCode">Google ad sense network code.</param>
+        /// <param name="targeting">GA slot specific.</param>
+		/// <returns>Script tags.</returns>
+		public static IHtmlString FooterTag(string networkCode, Dictionary<string, string> targeting)
 		{
 			var sb = new StringBuilder();
 
